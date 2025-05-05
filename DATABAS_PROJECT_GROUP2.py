@@ -405,6 +405,9 @@ def seller_window(ID, Address, Phone, Name, email, seller_win, server):
             Product_Name.insert(0, values[1])
             Stock_EN.insert(0, values[2])
 
+            Product_ID.config(state=DISABLED)
+            Product_Name.config(state=DISABLED)
+
         def view():
             try:
                 connect = pyodbc.connect(
@@ -421,7 +424,9 @@ def seller_window(ID, Address, Phone, Name, email, seller_win, server):
 
                 counter = 1
 
-
+                Product_ID.config(state=NORMAL)
+                Product_Name.config(state=NORMAL)
+                Stock_EN.config(state=NORMAL)
 
                 for item in TREEVIEW.get_children():
                     TREEVIEW.delete(item)
