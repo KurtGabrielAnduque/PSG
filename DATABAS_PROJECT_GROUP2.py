@@ -5,7 +5,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import pyodbc
 
-server = "DESKTOP-6AIOAKJ\\SQLEXPRESS"
+server = "Q5218-29\\SQLEXPRESS"
 
 
 # =============================================================================main seller window========================================================
@@ -88,9 +88,9 @@ def seller_window(ID, Address, Phone, Name, email, seller_win, server):
                 )
 
                 cursor = connect.cursor()
-                query_stmt = "SELECT * FROM Inventory"
+                query_stmt = "SELECT * FROM Inventory WHERE seller_ID = ?"
 
-                cursor.execute(query_stmt)
+                cursor.execute(query_stmt,(ID,))
                 products = cursor.fetchall()
 
                 for item in TREEVIEW.get_children():
@@ -505,7 +505,7 @@ def seller_window(ID, Address, Phone, Name, email, seller_win, server):
                     status.config(text="Failed to Add product")
 
             except pyodbc.Error as ex:
-                status.config(text="Failed to Add product")
+                status.config(text="Failed to Add product", fg = "red")
                 print(ex)
 
         def ADD_check():
@@ -1932,15 +1932,15 @@ def login_buy(server):
 
 main_window = Tk()
 main_window.geometry('1400x700')
-icon = PhotoImage(file='shopping.png')
+
 main_window.title('Login in Ziti Zitti SHOP')
 main_window.resizable(False, False)
-main_window.iconphoto(True, icon)
+icon = PhotoImage(file='shopping.png')
 main_window.config(bg='ghost white')
 main_Label = Label(main_window, text='Select Login', font=('Helvetica', 40, 'bold'), pady=40, bg='misty rose')
 main_Label.pack(fill="x")
-
-Logo = Label(main_window, text='Welcome to Ziti Zitti SHOP', image=icon, compound='top', bg='coral', pady=50,
+main_window.iconphoto(True, icon)
+Logo = Label(main_window, text='Welcome to Ziti Zitti SHOP', image=icon, compound='top',bg='coral', pady=50,
              font=('Helvetica', 20, 'bold'))
 Logo.place(x=700, y=145, height=555, width=700)
 
